@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction à JSX</title>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        class App extends React.Component {
+
+            constructor(props) {
+                super(props);
+
+                this.state = {
+                    msg: "Veuillez vous inscrire",
+                    ins: "Inscription",
+                    img: "img.jpg"
+                };
+
+                this.styles = {
+                    fontWeight: "bold",
+                    color: "teal"
+                };
+            }
+
+            Changement = () => {
+                this.setState({
+                    msg: "Suivez les maj",
+                    ins: "Déjà inscrit",
+                    img: "img2.jpg"
+                });
+            };
+
+            render() {
+                return (
+                    <div>
+                        <h1 style={this.styles}>
+                            {this.state.msg}
+                        </h1>
+
+                        <button onMouseOver={this.Changement}>
+                            {this.state.ins}
+                        </button>
+
+                        <br />
+
+                        <img
+                            src={this.state.img}
+                            alt="Image d'inscription"
+                            style={{
+                                width: "300px",
+                                height: "200px",
+                                objectFit: "cover"
+                            }}
+                        />
+                    </div>
+                );
+            }
+        }
+
+        const root = ReactDOM.createRoot(
+            document.getElementById("root")
+        );
+
+        root.render(<App />);
+
+    </script>
+
+</body>
+</html>
