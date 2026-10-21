@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './style.css'; // Votre fichier CSS
 
-// 1. Composant pour une ligne avec la case à cocher (utilise .css-objet)
-function CaseCocher() {
+// 1. Composant pour une ligne avec la case à cocher (composant fonctionnel)
+function CaseCocher({ id, label }) {
   return (
     <div className="css-objet">
-      <input type="checkbox" id="case1" />
-      <label htmlFor="case1">Cocher la bonne réponse</label>
+      <input type="checkbox" id={id} />
+      <label htmlFor={id}>{label}</label>
     </div>
   );
 }
 
-// 2. Composant principal qui affiche le message dynamique et la liste de cases (utilise .css-liste)
+// 2. Composant de l'application conditionnelle
 function Conditional() {
   const heure = new Date().getHours();
   let message = "";
@@ -25,7 +25,7 @@ function Conditional() {
   }
 
   const styleObject = {
-    fontSize: 50 // Réduit un peu pour que ça rentre bien dans la boîte
+    fontSize: 50
   };
 
   if (message === 'Bonjour') {
@@ -40,15 +40,77 @@ function Conditional() {
     <div>
       <h1 style={{ textAlign: 'center' }}><span style={styleObject}>{message}</span></h1>
       
-      {/* Le conteneur principal avec l'effet d'ombre défini dans votre CSS */}
       <div className="css-liste">
-        <CaseCocher />
-        <CaseCocher />
-        <CaseCocher />
-        <CaseCocher />
+        <CaseCocher id="case1" label="Cocher la bonne réponse 1" />
+        <CaseCocher id="case2" label="Cocher la bonne réponse 2" />
+        <CaseCocher id="case3" label="Cocher la bonne réponse 3" />
+        <CaseCocher id="case4" label="Cocher la bonne réponse 4" />
       </div>
     </div>
   );
 }
 
-export default Conditional;
+// 3. Composant sous forme de Classe pour la carte de contact (Exercice Chatons)
+class ContactCard extends Component {
+  render() {
+    const { img, name, phone, email } = this.props;
+    
+    return (
+      <div className="contact-card">
+        <img src={img} alt={name} />
+        <h3>{name}</h3>
+        <p>Phone: {phone}</p>
+        <p>Email: {email}</p>
+      </div>
+    );
+  }
+}
+
+// 4. Composant principal App (sous forme de Classe)
+class App extends Component {
+  render() {
+    return (
+      <div>
+        {/* Affichage de l'activité 1 & 2 (Conditional) */}
+        <Conditional />
+
+        <hr style={{ margin: '40px 0' }} />
+
+        {/* Affichage de l'activité 3 (Cartes de contacts) */}
+        <h2 style={{ textAlign: 'center' }}>Liste des Contacts</h2>
+        <div className="contacts">
+          <ContactCard 
+            img="https://picsum.photos/id/237/300/200"
+            name="Mr. Whiskerson"
+            phone="(212) 555-1234"
+            email="mr.whiskaz@catnap.meow"
+          />
+          
+          <ContactCard 
+            img="https://picsum.photos/id/1025/400/200"
+            name="Fluffykins"
+            phone="(212) 555-2345"
+            email="fluff@me.com"
+          />
+          
+          <ContactCard 
+            img="https://picsum.photos/400/300?random=3"
+            name="Destroyer"
+            phone="(212) 555-3456"
+            email="ofworlds@yahoo.com"
+          />
+          
+          <ContactCard 
+            img="https://picsum.photos/id/40/200/100"
+            name="Felix"
+            phone="(212) 555-4567"
+            email="thecat@hotmail.com"
+          />
+        </div>
+      </div>
+    );
+  }
+}
+
+// Exportation du composant principal App
+export default App;
